@@ -1,0 +1,46 @@
+/* Jai Shree Ram */
+
+@font-face {
+    font-family: "fontSpring";
+    src: url(../fonts/Fontspring-DEMO-juana-extralightit_toKzXEsfr.ttf);
+}
+
+@font-face {
+    font-family: "helBold";
+    src: url(../fonts/HelveticaNowDisplay-Bold_VMHV5twUMR_2SBNfxj1ry.woff2);
+}
+
+@font-face {
+    font-family: "helExtBold";
+    src: url(../fonts/HelveticaNowDisplay-ExtraBold_Qqt_sGOvuc_Z0ZOJEQucI.woff2);
+}
+
+@font-face {
+    font-family: "helLight";
+    src: url(../fonts/HelveticaNowDisplay-Light_M4nzWhve6k_k7HolyzL10.woff2);
+}
+
+@font-face {
+    font-family: "helMedium";
+    src: url(../fonts/HelveticaNowDisplay-Medium_2wEhlmo-TD_wsqqEEwmJC.woff2);
+}
+
+@font-face {
+    font-family: "helRegular";
+    src: url(../fonts/HelveticaNowDisplay-Regular_5Mzhp8KlA8_CAVTbnsPOM.woff2);
+}
+
+@font-face {
+    font-family: "machinaBold";
+    src: url(../fonts/NeueMachina-Bold_WaMOsLX9Z9.ttf);
+}
+
+@font-face {
+    font-family: "machinaLight";
+    src: url(../fonts/NeueMachina-Light_gwWCZxVuQl.ttf);
+}
+
+@font-face {
+    font-family: "machinaRegular";
+    src: url(../fonts/NeueMachina-Regular_DQCmjH1st.ttf);
+}

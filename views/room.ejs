@@ -1,0 +1,311 @@
+<!-- radhe radhe -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../public/img/logo.svg" type="image/x-icon">
+    <link rel="stylesheet" href="../public/css/fonts.css">
+    <link rel="stylesheet" href="../public/css/themeManager.css">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <title>native env - Room</title>
+</head>
+<body class="bg-black">
+    
+    <div class="main p-5 w-full bg-black text-white relative min-h-screen font-['machinaRegular']">
+        <!-- Top Navigation Bar -->
+        <div class="flex justify-between items-center mb-8">
+            <!-- Logo -->
+            <div class="logo flex gap-2 text-lg tracking-wide select-none items-center">
+                <img class="w-8 transition-all duration-500 hover:-translate-y-1" src="../public/img/logo.svg" alt="">
+                native env
+            </div>
+            
+            <!-- Room Code Display -->
+            <div class="text-zinc-400 text-sm bg-zinc-900 px-4 py-2 rounded-md border border-zinc-800">
+                Room: <span class="text-white font-semibold">458901</span>
+            </div>
+            
+            <!-- Delete Button -->
+            <button class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md transition-colors duration-300 flex items-center gap-2 font-medium transform hover:scale-105">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
+                </svg>
+                Delete Room
+            </button>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="max-w-4xl mx-auto">
+            <!-- Devices Connected Dropdown -->
+            <div class="mb-8">
+                <h2 class="text-xl font-semibold mb-4">Connected Devices</h2>
+                <div class="relative">
+                    <button id="devicesDropdown" class="w-full flex items-center justify-between bg-zinc-900 border border-zinc-800 rounded-md px-4 py-3 text-left shadow-md transition-all hover:border-zinc-700">
+                        <div class="flex items-center gap-3">
+                            <span class="bg-green-500 h-3 w-3 rounded-full"></span>
+                            <span>3 Devices Connected</span>
+                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transition-transform" id="dropdownArrow" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                        </svg>
+                    </button>
+                    
+                    <!-- Dropdown Content -->
+                    <div id="devicesList" class="absolute w-full mt-2 bg-zinc-900 border border-zinc-800 rounded-md shadow-lg z-10 hidden">
+                        <ul class="py-1">
+                            <li class="px-4 py-3 hover:bg-zinc-800 cursor-pointer border-b border-zinc-800">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center gap-3">
+                                        <div class="bg-blue-500 h-8 w-8 rounded-full flex items-center justify-center">
+                                            <span class="text-sm font-bold">PC</span>
+                                        </div>
+                                        <div>
+                                            <p class="font-medium">MacBook Pro</p>
+                                            <p class="text-xs text-zinc-400">Owner • 192.168.1.5</p>
+                                        </div>
+                                    </div>
+                                    <span class="bg-green-500 h-3 w-3 rounded-full"></span>
+                                </div>
+                            </li>
+                            <li class="px-4 py-3 hover:bg-zinc-800 cursor-pointer border-b border-zinc-800">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center gap-3">
+                                        <div class="bg-purple-500 h-8 w-8 rounded-full flex items-center justify-center">
+                                            <span class="text-sm font-bold">IP</span>
+                                        </div>
+                                        <div>
+                                            <p class="font-medium">iPhone 14</p>
+                                            <p class="text-xs text-zinc-400">Guest • 192.168.1.8</p>
+                                        </div>
+                                    </div>
+                                    <span class="bg-green-500 h-3 w-3 rounded-full"></span>
+                                </div>
+                            </li>
+                            <li class="px-4 py-3 hover:bg-zinc-800 cursor-pointer">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center gap-3">
+                                        <div class="bg-orange-500 h-8 w-8 rounded-full flex items-center justify-center">
+                                            <span class="text-sm font-bold">TB</span>
+                                        </div>
+                                        <div>
+                                            <p class="font-medium">ThinkPad X1</p>
+                                            <p class="text-xs text-zinc-400">Guest • 192.168.1.12</p>
+                                        </div>
+                                    </div>
+                                    <span class="bg-green-500 h-3 w-3 rounded-full"></span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Shared Files Section -->
+            <div>
+                <h2 class="text-xl font-semibold mb-4">Shared Files</h2>
+                
+                <!-- File Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <!-- File Item 1 -->
+                    <div class="bg-zinc-900 border border-zinc-800 rounded-lg overflow-hidden transition-all hover:border-zinc-700 hover:shadow-md hover:shadow-white/5">
+                        <div class="p-4 border-b border-zinc-800">
+                            <div class="flex items-center justify-between mb-2">
+                                <div class="flex items-center gap-2">
+                                    <div class="bg-blue-500 h-6 w-6 rounded-md flex items-center justify-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clip-rule="evenodd" />
+                                        </svg>
+                                    </div>
+                                    <span class="font-medium truncate">project_notes.txt</span>
+                                </div>
+                                <span class="text-xs text-zinc-500">48 KB</span>
+                            </div>
+                            <div class="text-xs text-zinc-400 mt-1">Text Document</div>
+                        </div>
+                        <div class="px-4 py-3 bg-zinc-800/30 flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <div class="bg-blue-500 h-6 w-6 rounded-full flex items-center justify-center">
+                                    <span class="text-xs font-bold">PC</span>
+                                </div>
+                                <span class="text-xs">MacBook Pro</span>
+                            </div>
+                            <div class="flex gap-2">
+                                <button class="p-1.5 bg-zinc-700 rounded-md hover:bg-zinc-600 transition-colors">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- File Item 2 -->
+                    <div class="bg-zinc-900 border border-zinc-800 rounded-lg overflow-hidden transition-all hover:border-zinc-700 hover:shadow-md hover:shadow-white/5">
+                        <div class="p-4 border-b border-zinc-800">
+                            <div class="flex items-center justify-between mb-2">
+                                <div class="flex items-center gap-2">
+                                    <div class="bg-green-500 h-6 w-6 rounded-md flex items-center justify-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clip-rule="evenodd" />
+                                        </svg>
+                                    </div>
+                                    <span class="font-medium truncate">data_analysis.xlsx</span>
+                                </div>
+                                <span class="text-xs text-zinc-500">1.2 MB</span>
+                            </div>
+                            <div class="text-xs text-zinc-400 mt-1">Excel Spreadsheet</div>
+                        </div>
+                        <div class="px-4 py-3 bg-zinc-800/30 flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <div class="bg-orange-500 h-6 w-6 rounded-full flex items-center justify-center">
+                                    <span class="text-xs font-bold">TB</span>
+                                </div>
+                                <span class="text-xs">ThinkPad X1</span>
+                            </div>
+                            <div class="flex gap-2">
+                                <button class="p-1.5 bg-zinc-700 rounded-md hover:bg-zinc-600 transition-colors">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- File Item 3 -->
+                    <div class="bg-zinc-900 border border-zinc-800 rounded-lg overflow-hidden transition-all hover:border-zinc-700 hover:shadow-md hover:shadow-white/5">
+                        <div class="p-4 border-b border-zinc-800">
+                            <div class="flex items-center justify-between mb-2">
+                                <div class="flex items-center gap-2">
+                                    <div class="bg-red-500 h-6 w-6 rounded-md flex items-center justify-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd" />
+                                        </svg>
+                                    </div>
+                                    <span class="font-medium truncate">presentation_slide.jpg</span>
+                                </div>
+                                <span class="text-xs text-zinc-500">3.8 MB</span>
+                            </div>
+                            <div class="text-xs text-zinc-400 mt-1">Image File</div>
+                        </div>
+                        <div class="px-4 py-3 bg-zinc-800/30 flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <div class="bg-purple-500 h-6 w-6 rounded-full flex items-center justify-center">
+                                    <span class="text-xs font-bold">IP</span>
+                                </div>
+                                <span class="text-xs">iPhone 14</span>
+                            </div>
+                            <div class="flex gap-2">
+                                <button class="p-1.5 bg-zinc-700 rounded-md hover:bg-zinc-600 transition-colors">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- File Item 4 -->
+                    <div class="bg-zinc-900 border border-zinc-800 rounded-lg overflow-hidden transition-all hover:border-zinc-700 hover:shadow-md hover:shadow-white/5">
+                        <div class="p-4 border-b border-zinc-800">
+                            <div class="flex items-center justify-between mb-2">
+                                <div class="flex items-center gap-2">
+                                    <div class="bg-purple-500 h-6 w-6 rounded-md flex items-center justify-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clip-rule="evenodd" />
+                                        </svg>
+                                    </div>
+                                    <span class="font-medium truncate">app_mockup.sketch</span>
+                                </div>
+                                <span class="text-xs text-zinc-500">8.5 MB</span>
+                            </div>
+                            <div class="text-xs text-zinc-400 mt-1">Sketch File</div>
+                        </div>
+                        <div class="px-4 py-3 bg-zinc-800/30 flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <div class="bg-blue-500 h-6 w-6 rounded-full flex items-center justify-center">
+                                    <span class="text-xs font-bold">PC</span>
+                                </div>
+                                <span class="text-xs">MacBook Pro</span>
+                            </div>
+                            <div class="flex gap-2">
+                                <button class="p-1.5 bg-zinc-700 rounded-md hover:bg-zinc-600 transition-colors">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- File Item 5 -->
+                    <div class="bg-zinc-900 border border-zinc-800 rounded-lg overflow-hidden transition-all hover:border-zinc-700 hover:shadow-md hover:shadow-white/5">
+                        <div class="p-4 border-b border-zinc-800">
+                            <div class="flex items-center justify-between mb-2">
+                                <div class="flex items-center gap-2">
+                                    <div class="bg-yellow-500 h-6 w-6 rounded-md flex items-center justify-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                                            <path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z" />
+                                        </svg>
+                                    </div>
+                                    <span class="font-medium truncate">meeting_notes.pdf</span>
+                                </div>
+                                <span class="text-xs text-zinc-500">520 KB</span>
+                            </div>
+                            <div class="text-xs text-zinc-400 mt-1">PDF Document</div>
+                        </div>
+                        <div class="px-4 py-3 bg-zinc-800/30 flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <div class="bg-orange-500 h-6 w-6 rounded-full flex items-center justify-center">
+                                    <span class="text-xs font-bold">TB</span>
+                                </div>
+                                <span class="text-xs">ThinkPad X1</span>
+                            </div>
+                            <div class="flex gap-2">
+                                <button class="p-1.5 bg-zinc-700 rounded-md hover:bg-zinc-600 transition-colors">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Upload Button -->
+                <div class="mt-6 flex justify-center">
+                    <button class="flex items-center gap-2 bg-zinc-800 hover:bg-zinc-700 text-white px-6 py-3 rounded-lg transition-colors shadow-md">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM6.293 6.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 5.414V13a1 1 0 11-2 0V5.414L7.707 6.707a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                        </svg>
+                        Share New File
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Toggle dropdown for devices
+            const dropdownButton = document.getElementById('devicesDropdown');
+            const dropdownContent = document.getElementById('devicesList');
+            const dropdownArrow = document.getElementById('dropdownArrow');
+            
+            dropdownButton.addEventListener('click', function() {
+                dropdownContent.classList.toggle('hidden');
+                dropdownArrow.classList.toggle('rotate-180');
+            });
+            
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function(event) {
+                if (!dropdownButton.contains(event.target) && !dropdownContent.contains(event.target)) {
+                    dropdownContent.classList.add('hidden');
+                    dropdownArrow.classList.remove('rotate-180');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

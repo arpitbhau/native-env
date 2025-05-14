@@ -1,0 +1,27 @@
+{
+  "name": "native-env",
+  "version": "1.0.0",
+  "description": "a env where devices can share their data across",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arpitbhau/native-env.git"
+  },
+  "keywords": [
+    "express.js",
+    "socket.io",
+    "native-env"
+  ],
+  "author": "arpitbhau",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/arpitbhau/native-env/issues"
+  },
+  "homepage": "https://github.com/arpitbhau/native-env#readme",
+  "dependencies": {
+    "ejs": "^3.1.10"
+  }
+}
