@@ -25,6 +25,7 @@ dist-ssr
 
 
 # supabase stuff
-supabase*
+supabase*.txt
 
+# env file
 .env
