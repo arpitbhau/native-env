@@ -1,11 +1,12 @@
+<!-- radhe radhe -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="../public/img/logo.svg" type="image/x-icon">
-    <link rel="stylesheet" href="../public/css/fonts.css">
-    <link rel="stylesheet" href="../public/css/themeManager.css">
+    <link rel="shortcut icon" href="/img/logo.svg" type="image/x-icon">
+    <link rel="stylesheet" href="/css/fonts.css">
+    <link rel="stylesheet" href="/css/themeManager.css">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <title>native env</title>
 </head>
@@ -14,7 +15,7 @@
     <div class="main p-5 w-full bg-black text-white relative min-h-screen font-['machinaRegular']">
 
         <div class="logo absolute flex gap-2 text-lg tracking-wide select-none items-center justify-center">
-            <img class="w-12 transition-all duration-500 hover:-translate-y-1" src="../public/img/logo.svg" alt="">
+            <img class="w-12 transition-all duration-500 hover:-translate-y-1" src="/img/logo.svg" alt="">
             native env
         </div>
         
@@ -39,8 +40,8 @@
                         <input type="text" maxlength="1" class="w-12 h-12 rounded-md bg-zinc-800 border border-zinc-700 text-center text-white text-xl focus:outline-none focus:border-zinc-600 focus:ring-1 focus:ring-white/20 transition-all duration-300">
                     </div>
                     
-                    <button class="w-full bg-white text-black py-3 rounded-md font-medium transition-all duration-300 hover:opacity-90 transform hover:translate-y-px shadow-md shadow-white/10 hover:shadow-white/20">
-                        Join Session
+                    <button class="joinRoomBtn w-full cursor-pointer bg-white text-black py-3 rounded-md font-medium transition-all duration-300 hover:opacity-90 transform hover:translate-y-px shadow-md shadow-white/10 hover:shadow-white/20">
+                        Join Room
                     </button>
                 </div>
                 
@@ -52,7 +53,7 @@
                 
                 <!-- Create Room Section -->
                 <div class="mt-4">
-                    <button class="w-full bg-transparent hover:bg-zinc-800 text-white py-3 rounded-md font-medium transition-all duration-300 transform hover:translate-y-px border border-zinc-700 hover:border-white shadow-md shadow-white/5 hover:shadow-white/10">
+                    <button class="createRoomBtn w-full cursor-pointer bg-transparent hover:bg-zinc-800 text-white py-3 rounded-md font-medium transition-all duration-300 transform hover:translate-y-px border border-zinc-700 hover:border-white shadow-md shadow-white/5 hover:shadow-white/10">
                         Create New Room
                     </button>
                 </div>
@@ -60,120 +61,7 @@
         </div>
     </div>
     
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const inputs = document.querySelectorAll('input[type="text"][maxlength="1"]');
-        
-        // Remove the onkeyup attribute that was causing issues
-        inputs.forEach(input => {
-            input.removeAttribute('onkeyup');
-        });
-        
-        // Add proper event listeners
-        inputs.forEach((input, index) => {
-            // Handle input (typing a character)
-            input.addEventListener('input', function(e) {
-                // Keep only numbers
-                this.value = this.value.replace(/[^0-9]/g, '');
-                
-                // Move to next input if a number was entered
-                if (this.value !== '' && index < inputs.length - 1) {
-                    inputs[index + 1].focus();
-                }
-            });
-            
-            // Handle all keypresses
-            input.addEventListener('keydown', function(e) {
-                // Backspace handling
-                if (e.key === 'Backspace') {
-                    // If current input has a value, just clear it
-                    if (this.value !== '') {
-                        this.value = '';
-                        return;
-                    }
-                    
-                    // If current input is empty, go to previous and clear it
-                    if (index > 0) {
-                        inputs[index - 1].value = '';
-                        inputs[index - 1].focus();
-                    }
-                }
-                
-                // Arrow left - move focus left if possible
-                else if (e.key === 'ArrowLeft' && index > 0) {
-                    inputs[index - 1].focus();
-                }
-                
-                // Arrow right - move focus right if possible
-                else if (e.key === 'ArrowRight' && index < inputs.length - 1) {
-                    inputs[index + 1].focus();
-                }
-                
-                // Delete key - just clear current input
-                else if (e.key === 'Delete') {
-                    this.value = '';
-                }
-            });
-        });
-        
-        // Handle paste event on the first input
-        inputs[0].addEventListener('paste', function(e) {
-            e.preventDefault();
-            const pasteData = (e.clipboardData || window.clipboardData).getData('text');
-            
-            if (/^\d+/.test(pasteData)) {
-                // Extract only digits
-                const digits = pasteData.replace(/\D/g, '');
-                
-                // Fill inputs with pasted digits
-                for (let i = 0; i < Math.min(digits.length, inputs.length); i++) {
-                    inputs[i].value = digits[i];
-                }
-                
-                // Focus the appropriate input after paste
-                if (digits.length >= inputs.length) {
-                    inputs[inputs.length - 1].focus();
-                } else if (digits.length > 0) {
-                    inputs[digits.length].focus();
-                }
-            }
-        });
-        
-        // Add paste handler to all inputs
-        inputs.forEach(input => {
-            input.addEventListener('paste', function(e) {
-                // Redirect all paste events to the first input
-                e.preventDefault();
-                inputs[0].focus();
-                
-                // Create a new paste event for the first input
-                const clipboardData = e.clipboardData || window.clipboardData;
-                const pasteEvent = new ClipboardEvent('paste', {
-                    clipboardData: clipboardData,
-                    bubbles: true
-                });
-                
-                // Dispatch the paste event on the first input
-                setTimeout(() => {
-                    inputs[0].dispatchEvent(pasteEvent);
-                }, 0);
-            });
-        });
-        
-        // Add button handler
-        const joinButton = document.querySelector('button');
-        if (joinButton) {
-            joinButton.addEventListener('click', function() {
-                const code = Array.from(inputs).map(input => input.value || '').join('');
-                if (code.length === 6) {
-                    console.log('Room code submitted:', code);
-                    // Process the code
-                } else {
-                    alert('Please enter all 6 digits');
-                }
-            });
-        }
-    });
-    </script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/index.js"></script>r
 </body>
 </html>
