@@ -1,16 +1,13 @@
 // radhe radhe
 
-import supabase from "../supabase/supabaseConfig"
+import supabase from "../supabase/supabaseConfig.js"
 
 export async function getColumnValues(tableName, columnName) {
     const { data, error } = await supabase
       .from(tableName)
       .select(columnName)
   
-    if (error) {
-      console.error('Error fetching data:', error)
-      return null
-    }
+    if (error) return false
   
     // Extract only the column values from the rows
     return data.map(row => row[columnName])
@@ -32,11 +29,8 @@ export async function getCellValue(tableName, targetColumn, referenceColumn, ref
       .eq(referenceColumn, referenceValue)
       .single() // Get a single row
   
-    if (error) {
-      console.error('Error fetching cell value:', error)
-      return null
-    }
-  
+    if (error) return error
+
     return data[targetColumn]
 }
 
@@ -50,10 +44,7 @@ export async function checkValueExists(tableName, columnName, valueToCheck) {
       .eq(columnName, valueToCheck)
       .limit(1) // Only need to check one match
   
-    if (error) {
-      console.error('Error checking value existence:', error)
-      return false
-    }
+    if (error) return false
   
     return data.length > 0
 }
@@ -65,12 +56,9 @@ export async function updateCellValue(tableName, targetColumn, referenceColumn, 
       .eq(referenceColumn, referenceValue)
       .select() // Optional: return updated row(s)
   
-    if (error) {
-      console.error('Error updating cell:', error)
-      return false
-    }
+    if (error) return false;
   
-    return data
+    return !!data
 
     // what's in data?
     // [
@@ -82,7 +70,7 @@ export async function updateCellValue(tableName, targetColumn, referenceColumn, 
     // ]
 }
 
-export async function insertRoom(tableName, roomId, connectedUsers) {
+export async function insertRow(tableName, roomId, connectedUsers) {
     const { data, error } = await supabase
       .from(tableName)
       .insert([
@@ -94,11 +82,39 @@ export async function insertRoom(tableName, roomId, connectedUsers) {
       ])
       .select() // Optional: get inserted row(s)
   
-    if (error) {
-      console.error('Error inserting row:', error)
-      return null
-    }
+    if (error) return false
   
-    return data[0] // Return the inserted row
+    return !!data[0] // Return the inserted row
 }
-  
+
+export async function countRows(tableName) {
+  const { count, error } = await supabase
+    .from(tableName)
+    .select('*', { count: 'exact', head: true }) // Only get count, not data
+
+  if (error) return false
+
+  return count
+}
+
+export async function deleteRow(tableName, referenceColumn, referenceValue) {
+  const { data, error } = await supabase
+    .from(tableName)
+    .delete()
+    .eq(referenceColumn, referenceValue)
+
+  if (error) {
+    console.error('Delete error:', error)
+    return false
+  }
+
+  return !!data // this contains the deleted row(s)
+}
+
+export async function updateBothTables(fn, tableNames, args) {
+  for (let i = 0; i < tableNames.length; i++) {
+    const tableName = tableNames[i];
+    const fnArgs = args[i]; // This should be an array like [arg1, arg2, ...]
+    await fn(tableName, ...fnArgs);
+  }
+}

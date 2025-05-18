@@ -1,6 +1,8 @@
 // radhe radhe
 
 let ip;
+const socket = io()
+
 
 function inputHandler() {
     document.addEventListener('DOMContentLoaded', function() {
@@ -125,10 +127,21 @@ async function getUserIP() {
 
 getUserIP()
 
+function joinRoomAckSock() {
+    socket.on("joinRoomAck" , (ack) => {
+        if (ack.success) {
+            location.href = `/room/${ack.roomId}`
+            
+        } else {
+            alert("server denied!")
+        }
+    })
+}
+
 function joinRoom() {
 
     const inputs = document.querySelectorAll('input[type="text"][maxlength="1"]');
-    const socket = io()
+    
         
     document.querySelector('.joinRoomBtn')
     .addEventListener('click', async function() {
@@ -136,20 +149,39 @@ function joinRoom() {
         const code = Array.from(inputs).map(input => input.value || '').join('');
         
         // requesting server to join room
-        code.length === 6 ? socket.emit("joinRoom" , {roomId: code , IP: ip}) : alert('Please enter all 6 digits');
+        code.length === 6 ? socket.emit("joinRoom" , {roomId: code , IP: ip , senderFn: "joinRoom"}) : alert('Please enter all 6 digits');
         
     });
 
-    socket.on("joinRoomAck" , (ack) => {
-        if (ack.success) {
-            location.href = `/room/${ack.roomId}`
-            socket.join(ack.roomId)
-        } else {
-            alert("server denied!")
-        }
-        
-    })
+    joinRoomAckSock()
     
 }
 
 joinRoom()
+
+function createRoom() {
+
+    function ctrRoomCtrl() {
+        // stringify the code for data type hindrance
+        let code = `${Math.floor(Math.random() * 1000000)}`
+
+        
+        // check room exist by sending server message
+        socket.emit("checkRoomExist" , {roomId: code})
+        
+        // ack of room check
+        socket.on("ackCheckRoomExist" , ack => {
+            if (ack.success) socket.emit("joinRoom" , {roomId: code , IP: ip , senderFn: "createRoom"})
+            else ctrRoomCtrl()
+        })
+
+        joinRoomAckSock()
+        
+    }
+    
+    document.querySelector(".createRoomBtn")
+    .addEventListener("click" , ctrRoomCtrl)
+
+}
+
+createRoom()

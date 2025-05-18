@@ -1,10 +1,20 @@
 // radhe radhe
 
-import { roomReqSockCtrl } from "../controllers/socketController.js";
+import { joinRoomSockCtrl , disConnectCtrl , roomExistsSockCtrl , txtUploadSockCtrl, getUsersSockCtrl } from "../controllers/socketController.js";
 
 function roomReqSocket(io) {
     io.on("connection", (socket) => {
-        roomReqSockCtrl(socket)
+
+        joinRoomSockCtrl(socket , io)
+
+        roomExistsSockCtrl(socket)
+
+        txtUploadSockCtrl(socket , io)
+
+        getUsersSockCtrl(socket , io)
+
+        disConnectCtrl(socket)
+
     });
 }
 
