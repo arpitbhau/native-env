@@ -49,6 +49,16 @@ async function getUserIP() {
     }
 }
 
+function deleteRoomSock() {
+
+    socket.emit("deleteRoom" , {roomId: roomId})
+
+    socket.on("ackDeleteRoom" , dets => {
+        return dets.success
+    })
+  
+}
+
 // ===========UI FUNCTIONALITY==============
 function uiFunctionality() {
     document.addEventListener('DOMContentLoaded', function() {
@@ -421,11 +431,16 @@ function uiFunctionality() {
         const deleteRoomBtn = document.querySelector('.bg-red-600');
         deleteRoomBtn.addEventListener('click', function() {
             if (confirm('Are you sure you want to delete this room? All files will be permanently removed.')) {
-                showNotification('Room deleted successfully');
-                // In a real application, this would redirect to another page
-                setTimeout(() => {
-                    window.location.href = '/dashboard';
-                }, 2000);
+
+                if (deleteRoomSock()) {
+
+                    showNotification('Room deleted successfully');
+                    // In a real application, this would redirect to another page
+                    setTimeout(() => {
+                        window.location.href = '/';
+                    }, 2000);
+                }
+
             }
         });
     });
@@ -485,20 +500,6 @@ function setUsersList() {
     
     })
 
-}
-
-function deleteRoomFunc() {
-    document.querySelector(".deleteRoomBtn")
-    .addEventListener("click" , () => {
-
-        socket.emit("deleteRoom" , {roomId: roomId})
-
-        socket.on("ackDeleteRoom" , dets => {
-            if (dets.success) location.href = "/"
-            else alert("Failed Deleting Room")
-        })
-        
-    })
 }
 
 async function main() {

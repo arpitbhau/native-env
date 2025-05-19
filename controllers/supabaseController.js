@@ -111,10 +111,16 @@ export async function deleteRow(tableName, referenceColumn, referenceValue) {
   return !!data // this contains the deleted row(s)
 }
 
-export async function updateBothTables(fn, tableNames, args) {
-  for (let i = 0; i < tableNames.length; i++) {
-    const tableName = tableNames[i];
-    const fnArgs = args[i]; // This should be an array like [arg1, arg2, ...]
-    await fn(tableName, ...fnArgs);
-  }
+export async function getFilteredRow(table, referenceColumn, referenceValue) {
+  const { data, error } = await supabase
+    .from(table)
+    .select('*')
+    .eq(referenceColumn, referenceValue)
+    .single()
+
+  if (error) return false
+
+  // Destructure to remove 'id' and 'created_at'
+  const { id, created_at, ...filteredRow } = data
+  return filteredRow
 }
